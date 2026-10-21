@@ -37,6 +37,11 @@ on:
         required: true
         type: string
 
+# Two builds of the same ref push the same tags: let the newest one win.
+concurrency:
+  group: build-${{ github.ref }}-${{ inputs.version || inputs.image-tag || 'tag' }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest

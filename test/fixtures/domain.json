@@ -1,0 +1,168 @@
+{
+  "System": {
+    "ActiveSystemVersion": "3.14.0",
+    "HardwareGeneration": 1,
+    "OverrideType": "None",
+    "EcoModeEnabled": true,
+    "CloudConnectionStatus": "Connected",
+    "BrandName": "WiserHeat"
+  },
+  "HeatingChannel": [
+    {
+      "id": 1,
+      "Name": "Channel-1",
+      "RoomIds": [1, 2, 3],
+      "PercentageDemand": 40,
+      "DemandOnOffOutput": "On",
+      "HeatingRelayState": "On"
+    }
+  ],
+  "Room": [
+    {
+      "id": 1,
+      "Name": "Living room",
+      "Mode": "Auto",
+      "RoomStatId": 10,
+      "SmartValveIds": [20, 21],
+      "CalculatedTemperature": 195,
+      "CurrentSetPoint": 210,
+      "ScheduledSetPoint": 210,
+      "ManualSetPoint": 200,
+      "PercentageDemand": 40,
+      "ControlOutputState": "On",
+      "WindowState": "Closed",
+      "SetpointOrigin": "FromSchedule",
+      "OverrideType": "None"
+    },
+    {
+      "id": 2,
+      "Name": "Bedroom",
+      "Mode": "Manual",
+      "SmartValveIds": [22],
+      "CalculatedTemperature": 182,
+      "CurrentSetPoint": 180,
+      "ScheduledSetPoint": 170,
+      "ManualSetPoint": 180,
+      "PercentageDemand": 0,
+      "ControlOutputState": "Off",
+      "WindowState": "Closed",
+      "SetpointOrigin": "FromManualMode",
+      "OverrideType": "None"
+    },
+    {
+      "id": 3,
+      "Name": "Office",
+      "Mode": "Manual",
+      "SmartValveIds": [],
+      "CalculatedTemperature": -32768,
+      "CurrentSetPoint": -200,
+      "ScheduledSetPoint": 190,
+      "ManualSetPoint": -200,
+      "PercentageDemand": 0,
+      "ControlOutputState": "Off",
+      "SetpointOrigin": "FromManualMode",
+      "OverrideType": "None"
+    }
+  ],
+  "Device": [
+    {
+      "id": 0,
+      "NodeId": 0,
+      "ProductType": "Controller",
+      "SerialNumber": "HUB0001",
+      "ActiveFirmwareVersion": "3.14.0"
+    },
+    {
+      "id": 10,
+      "NodeId": 1001,
+      "ProductType": "RoomStat",
+      "ModelIdentifier": "Thermostat",
+      "SerialNumber": "RS000010",
+      "ActiveFirmwareVersion": "04E1E9E9",
+      "DisplayedSignalStrength": "VeryGood",
+      "BatteryVoltage": 26,
+      "BatteryLevel": "Normal"
+    },
+    {
+      "id": 20,
+      "NodeId": 1002,
+      "ProductType": "iTRV",
+      "ModelIdentifier": "iTRV",
+      "SerialNumber": "TRV00020",
+      "DisplayedSignalStrength": "Good",
+      "BatteryVoltage": 30,
+      "BatteryLevel": "Normal"
+    },
+    {
+      "id": 21,
+      "NodeId": 1003,
+      "ProductType": "iTRV",
+      "ModelIdentifier": "iTRV",
+      "SerialNumber": "TRV00021",
+      "DisplayedSignalStrength": "Medium",
+      "BatteryVoltage": 28,
+      "BatteryLevel": "TwoThirds"
+    },
+    {
+      "id": 22,
+      "NodeId": 1004,
+      "ProductType": "iTRV",
+      "ModelIdentifier": "iTRV",
+      "SerialNumber": "TRV00022",
+      "DisplayedSignalStrength": "Poor",
+      "BatteryVoltage": 26,
+      "BatteryLevel": "OneThird"
+    },
+    {
+      "id": 30,
+      "NodeId": 1005,
+      "ProductType": "SmartPlug",
+      "SerialNumber": "PLUG0030",
+      "DisplayedSignalStrength": "Good"
+    }
+  ],
+  "RoomStat": [{ "id": 10, "SetPoint": 210, "MeasuredTemperature": 196, "MeasuredHumidity": 52 }],
+  "SmartValve": [
+    {
+      "id": 20,
+      "SetPoint": 210,
+      "MeasuredTemperature": 241,
+      "PercentageDemand": 40,
+      "WindowState": "Closed"
+    },
+    {
+      "id": 21,
+      "SetPoint": 210,
+      "MeasuredTemperature": 238,
+      "PercentageDemand": 40,
+      "WindowState": "Closed"
+    },
+    {
+      "id": 22,
+      "SetPoint": 180,
+      "MeasuredTemperature": 2000,
+      "PercentageDemand": 0,
+      "WindowState": "Closed"
+    }
+  ],
+  "SmartPlug": [
+    {
+      "id": 30,
+      "Name": "Towel rail",
+      "Mode": "Manual",
+      "OutputState": "On",
+      "ManualState": "On",
+      "InstantaneousDemand": 450,
+      "CurrentSummationDelivered": 123456
+    }
+  ],
+  "HotWater": [
+    {
+      "id": 2,
+      "Mode": "Auto",
+      "WaterHeatingState": "Off",
+      "HotWaterRelayState": "Off",
+      "OverrideType": "None"
+    }
+  ]
+}

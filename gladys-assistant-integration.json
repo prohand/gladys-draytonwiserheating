@@ -1,0 +1,842 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "Drayton Wiser Heating",
+  "description": {
+    "en": "Control your Drayton Wiser heating locally: rooms, hot water, smart plugs and valves.",
+    "fr": "Pilotez votre chauffage Drayton Wiser en local : pièces, eau chaude, prises et vannes.",
+    "de": "Steuere deine Drayton-Wiser-Heizung lokal: Räume, Warmwasser, Steckdosen und Ventile.",
+    "es": "Controle su calefacción Drayton Wiser en local: habitaciones, agua caliente y enchufes."
+  },
+  "version": "0.0.0",
+  "docker_image": "ghcr.io/prohand/gladys-draytonwiserheating:0.0.0",
+  "gladys_version": ">=5.1.0",
+  "cover_image": "https://raw.githubusercontent.com/prohand/gladys-draytonwiserheating/main/cover.png",
+  "categories": ["climate", "energy"],
+  "transports": ["local"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Getting started",
+        "fr": "Pour commencer",
+        "de": "Erste Schritte",
+        "es": "Primeros pasos"
+      },
+      "description": {
+        "en": "The integration talks to your Wiser HeatHub directly on your local network, without the Wiser cloud. It needs the hub address (find it in your router) and the hub secret: press the setup button of the hub, join its WiserHeat Wi-Fi network and open http://192.168.8.1/secret. The documentation explains each step.",
+        "fr": "L'intégration dialogue directement avec votre HeatHub Wiser sur votre réseau local, sans le cloud Wiser. Il lui faut l'adresse du hub (visible dans votre box) et le secret du hub : appuyez sur le bouton de configuration du hub, connectez-vous à son réseau Wi-Fi WiserHeat et ouvrez http://192.168.8.1/secret. La documentation détaille chaque étape.",
+        "de": "Die Integration spricht direkt in deinem lokalen Netzwerk mit deinem Wiser HeatHub, ohne die Wiser-Cloud. Sie braucht die Adresse des Hubs (siehe deinen Router) und das Secret des Hubs: Drücke die Setup-Taste des Hubs, verbinde dich mit seinem WLAN WiserHeat und öffne http://192.168.8.1/secret. Die Dokumentation erklärt jeden Schritt.",
+        "es": "La integración se comunica directamente con su HeatHub Wiser en su red local, sin la nube de Wiser. Necesita la dirección del hub (visible en su router) y el secreto del hub: pulse el botón de configuración del hub, conéctese a su red Wi-Fi WiserHeat y abra http://192.168.8.1/secret. La documentación explica cada paso."
+      },
+      "links": [
+        {
+          "url": "https://github.com/prohand/gladys-draytonwiserheating/blob/main/docs/en.md",
+          "label": {
+            "en": "Integration documentation",
+            "fr": "Documentation de l'intégration",
+            "de": "Dokumentation der Integration",
+            "es": "Documentación de la integración"
+          }
+        }
+      ]
+    },
+    {
+      "key": "hub_host",
+      "type": "string",
+      "label": {
+        "en": "HeatHub address",
+        "fr": "Adresse du HeatHub",
+        "de": "Adresse des HeatHub",
+        "es": "Dirección del HeatHub"
+      },
+      "description": {
+        "en": "IP address or host name of the hub on your network. Give it a fixed address in your router.",
+        "fr": "Adresse IP ou nom d'hôte du hub sur votre réseau. Donnez-lui une adresse fixe dans votre box.",
+        "de": "IP-Adresse oder Hostname des Hubs in deinem Netzwerk. Gib ihm im Router eine feste Adresse.",
+        "es": "Dirección IP o nombre de host del hub en su red. Asígnele una dirección fija en su router."
+      },
+      "placeholder": {
+        "en": "e.g. 192.168.1.40",
+        "fr": "ex. 192.168.1.40",
+        "de": "z. B. 192.168.1.40",
+        "es": "p. ej. 192.168.1.40"
+      },
+      "required": true
+    },
+    {
+      "key": "hub_secret",
+      "type": "secret",
+      "label": {
+        "en": "HeatHub secret",
+        "fr": "Secret du HeatHub",
+        "de": "Secret des HeatHub",
+        "es": "Secreto del HeatHub"
+      },
+      "description": {
+        "en": "The long key read at http://192.168.8.1/secret while connected to the hub in setup mode.",
+        "fr": "La longue clé lue sur http://192.168.8.1/secret, connecté au hub en mode configuration.",
+        "de": "Der lange Schlüssel von http://192.168.8.1/secret, verbunden mit dem Hub im Setup-Modus.",
+        "es": "La clave larga leída en http://192.168.8.1/secret, conectado al hub en modo configuración."
+      },
+      "required": true
+    },
+    {
+      "key": "hub_protocol",
+      "type": "select",
+      "label": {
+        "en": "Connection",
+        "fr": "Connexion",
+        "de": "Verbindung",
+        "es": "Conexión"
+      },
+      "description": {
+        "en": "Automatic suits every hub: recent second-generation hubs only answer HTTPS.",
+        "fr": "Automatique convient à tous les hubs : les hubs récents de 2e génération ne répondent qu'en HTTPS.",
+        "de": "Automatisch passt für jeden Hub: Neuere Hubs der 2. Generation antworten nur über HTTPS.",
+        "es": "Automático sirve para todos los hubs: los hubs recientes de 2.ª generación solo responden en HTTPS."
+      },
+      "required": false,
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Automatic",
+            "fr": "Automatique",
+            "de": "Automatisch",
+            "es": "Automático"
+          }
+        },
+        {
+          "value": "http",
+          "label": {
+            "en": "HTTP",
+            "fr": "HTTP",
+            "de": "HTTP",
+            "es": "HTTP"
+          }
+        },
+        {
+          "value": "https",
+          "label": {
+            "en": "HTTPS",
+            "fr": "HTTPS",
+            "de": "HTTPS",
+            "es": "HTTPS"
+          }
+        }
+      ]
+    },
+    {
+      "key": "poll_frequency",
+      "type": "number",
+      "label": {
+        "en": "Refresh interval (s)",
+        "fr": "Intervalle de rafraîchissement (s)",
+        "de": "Aktualisierungsintervall (s)",
+        "es": "Intervalo de actualización (s)"
+      },
+      "description": {
+        "en": "How often the hub is read, in seconds. One read covers every room and device.",
+        "fr": "Fréquence de lecture du hub, en secondes. Une lecture couvre toutes les pièces et tous les appareils.",
+        "de": "Wie oft der Hub gelesen wird, in Sekunden. Ein Lesevorgang umfasst alle Räume und Geräte.",
+        "es": "Frecuencia de lectura del hub, en segundos. Una lectura cubre todas las habitaciones y dispositivos."
+      },
+      "required": false,
+      "default": 60,
+      "min": 30,
+      "max": 900
+    },
+    {
+      "key": "boost_delta",
+      "type": "number",
+      "label": {
+        "en": "Boost (°C)",
+        "fr": "Boost (°C)",
+        "de": "Boost (°C)",
+        "es": "Boost (°C)"
+      },
+      "description": {
+        "en": "Degrees a room boost adds to the current temperature.",
+        "fr": "Degrés qu'un boost ajoute à la température actuelle de la pièce.",
+        "de": "Grad, die ein Raum-Boost zur aktuellen Temperatur hinzufügt.",
+        "es": "Grados que un boost añade a la temperatura actual de la habitación."
+      },
+      "required": false,
+      "default": 2,
+      "min": 0.5,
+      "max": 5
+    },
+    {
+      "key": "boost_duration",
+      "type": "number",
+      "label": {
+        "en": "Boost duration (min)",
+        "fr": "Durée du boost (min)",
+        "de": "Boost-Dauer (Min.)",
+        "es": "Duración del boost (min)"
+      },
+      "description": {
+        "en": "How long a room boost lasts, in minutes.",
+        "fr": "Durée d'un boost de pièce, en minutes.",
+        "de": "Wie lange ein Raum-Boost dauert, in Minuten.",
+        "es": "Duración de un boost de habitación, en minutos."
+      },
+      "required": false,
+      "default": 60,
+      "min": 15,
+      "max": 240
+    },
+    {
+      "key": "hot_water_boost_duration",
+      "type": "number",
+      "label": {
+        "en": "Hot water boost (min)",
+        "fr": "Boost eau chaude (min)",
+        "de": "Warmwasser-Boost (Min.)",
+        "es": "Boost agua caliente (min)"
+      },
+      "description": {
+        "en": "How long a hot water boost lasts, in minutes.",
+        "fr": "Durée d'un boost de l'eau chaude, en minutes.",
+        "de": "Wie lange ein Warmwasser-Boost dauert, in Minuten.",
+        "es": "Duración de un boost de agua caliente, en minutos."
+      },
+      "required": false,
+      "default": 30,
+      "min": 15,
+      "max": 180
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "timeout_seconds": 45
+    },
+    {
+      "key": "identify",
+      "label": {
+        "en": "Identify a device",
+        "fr": "Identifier un appareil",
+        "de": "Gerät identifizieren",
+        "es": "Identificar un dispositivo"
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          },
+          "required": true
+        }
+      ]
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "window_changed",
+      "label": {
+        "en": "Window opened or closed",
+        "fr": "Fenêtre ouverte ou fermée",
+        "de": "Fenster geöffnet oder geschlossen",
+        "es": "Ventana abierta o cerrada"
+      },
+      "description": {
+        "en": "A radiator valve detected a window opening (sudden temperature drop) or closing.",
+        "fr": "Une tête thermostatique a détecté l'ouverture (chute brutale de température) ou la fermeture d'une fenêtre.",
+        "de": "Ein Heizkörperthermostat hat ein geöffnetes (plötzlicher Temperaturabfall) oder geschlossenes Fenster erkannt.",
+        "es": "Un cabezal termostático detectó la apertura (caída brusca de temperatura) o el cierre de una ventana."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Room",
+            "fr": "Pièce",
+            "de": "Raum",
+            "es": "Habitación"
+          }
+        },
+        {
+          "key": "state",
+          "type": "multi_select",
+          "label": {
+            "en": "Window",
+            "fr": "Fenêtre",
+            "de": "Fenster",
+            "es": "Ventana"
+          },
+          "options": [
+            {
+              "value": "open",
+              "label": {
+                "en": "Opened",
+                "fr": "Ouverte",
+                "de": "Geöffnet",
+                "es": "Abierta"
+              }
+            },
+            {
+              "value": "closed",
+              "label": {
+                "en": "Closed",
+                "fr": "Fermée",
+                "de": "Geschlossen",
+                "es": "Cerrada"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "room",
+          "type": "string",
+          "label": {
+            "en": "Room",
+            "fr": "Pièce",
+            "de": "Raum",
+            "es": "Habitación"
+          }
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "Window (open / closed)",
+            "fr": "Fenêtre (open / closed)",
+            "de": "Fenster (open / closed)",
+            "es": "Ventana (open / closed)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "away_mode_changed",
+      "label": {
+        "en": "Away mode changed",
+        "fr": "Mode absence modifié",
+        "de": "Abwesenheitsmodus geändert",
+        "es": "Modo ausente cambiado"
+      },
+      "description": {
+        "en": "Away mode was turned on or off outside Gladys (Wiser app, hub button).",
+        "fr": "Le mode absence a été activé ou désactivé hors de Gladys (application Wiser, bouton du hub).",
+        "de": "Der Abwesenheitsmodus wurde außerhalb von Gladys ein- oder ausgeschaltet (Wiser-App, Hub-Taste).",
+        "es": "El modo ausente se activó o desactivó fuera de Gladys (app Wiser, botón del hub)."
+      },
+      "fields": [
+        {
+          "key": "state",
+          "type": "multi_select",
+          "label": {
+            "en": "Away mode",
+            "fr": "Mode absence",
+            "de": "Abwesenheitsmodus",
+            "es": "Modo ausente"
+          },
+          "options": [
+            {
+              "value": "on",
+              "label": {
+                "en": "Turned on",
+                "fr": "Activé",
+                "de": "Eingeschaltet",
+                "es": "Activado"
+              }
+            },
+            {
+              "value": "off",
+              "label": {
+                "en": "Turned off",
+                "fr": "Désactivé",
+                "de": "Ausgeschaltet",
+                "es": "Desactivado"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "Away mode (on / off)",
+            "fr": "Mode absence (on / off)",
+            "de": "Abwesenheitsmodus (on / off)",
+            "es": "Modo ausente (on / off)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "battery_low",
+      "label": {
+        "en": "Battery low",
+        "fr": "Piles faibles",
+        "de": "Batterie schwach",
+        "es": "Pilas bajas"
+      },
+      "description": {
+        "en": "A radiator valve or a room thermostat needs new batteries soon.",
+        "fr": "Une tête thermostatique ou un thermostat d'ambiance aura bientôt besoin de piles neuves.",
+        "de": "Ein Heizkörperthermostat oder ein Raumthermostat braucht bald neue Batterien.",
+        "es": "Un cabezal termostático o un termostato de ambiente necesitará pilas nuevas pronto."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "device_name",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "room",
+          "type": "string",
+          "label": {
+            "en": "Room",
+            "fr": "Pièce",
+            "de": "Raum",
+            "es": "Habitación"
+          }
+        },
+        {
+          "key": "level",
+          "type": "string",
+          "label": {
+            "en": "Battery level",
+            "fr": "Niveau des piles",
+            "de": "Batteriestand",
+            "es": "Nivel de pilas"
+          }
+        },
+        {
+          "key": "battery",
+          "type": "number",
+          "label": {
+            "en": "Battery (%)",
+            "fr": "Piles (%)",
+            "de": "Batterie (%)",
+            "es": "Pilas (%)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "hub_connection_changed",
+      "label": {
+        "en": "HeatHub connection lost or restored",
+        "fr": "Connexion au HeatHub perdue ou rétablie",
+        "de": "Verbindung zum HeatHub verloren oder wiederhergestellt",
+        "es": "Conexión con el HeatHub perdida o restablecida"
+      },
+      "description": {
+        "en": "The HeatHub stopped answering (power cut, Wi-Fi, wrong secret) or answers again.",
+        "fr": "Le HeatHub ne répond plus (coupure de courant, Wi-Fi, mauvais secret) ou répond de nouveau.",
+        "de": "Der HeatHub antwortet nicht mehr (Stromausfall, WLAN, falsches Secret) oder wieder.",
+        "es": "El HeatHub dejó de responder (corte de luz, Wi-Fi, secreto incorrecto) o vuelve a responder."
+      },
+      "fields": [
+        {
+          "key": "state",
+          "type": "multi_select",
+          "label": {
+            "en": "Connection",
+            "fr": "Connexion",
+            "de": "Verbindung",
+            "es": "Conexión"
+          },
+          "options": [
+            {
+              "value": "lost",
+              "label": {
+                "en": "Lost",
+                "fr": "Perdue",
+                "de": "Verloren",
+                "es": "Perdida"
+              }
+            },
+            {
+              "value": "restored",
+              "label": {
+                "en": "Restored",
+                "fr": "Rétablie",
+                "de": "Wiederhergestellt",
+                "es": "Restablecida"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "Connection (lost / restored)",
+            "fr": "Connexion (lost / restored)",
+            "de": "Verbindung (lost / restored)",
+            "es": "Conexión (lost / restored)"
+          }
+        },
+        {
+          "key": "reason",
+          "type": "string",
+          "label": {
+            "en": "Reason",
+            "fr": "Raison",
+            "de": "Grund",
+            "es": "Motivo"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "boost_room",
+      "label": {
+        "en": "Boost a room",
+        "fr": "Booster une pièce",
+        "de": "Raum boosten",
+        "es": "Boost de una habitación"
+      },
+      "description": {
+        "en": "Heat a room above its current temperature for a while. Without a room: every room.",
+        "fr": "Chauffe une pièce au-dessus de sa température actuelle pendant un temps. Sans pièce : toutes les pièces.",
+        "de": "Heizt einen Raum eine Zeit lang über seine aktuelle Temperatur. Ohne Raum: alle Räume.",
+        "es": "Calienta una habitación por encima de su temperatura actual durante un tiempo. Sin habitación: todas."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Room",
+            "fr": "Pièce",
+            "de": "Raum",
+            "es": "Habitación"
+          }
+        },
+        {
+          "key": "delta",
+          "type": "number",
+          "label": {
+            "en": "Degrees to add (°C)",
+            "fr": "Degrés à ajouter (°C)",
+            "de": "Zusätzliche Grad (°C)",
+            "es": "Grados a añadir (°C)"
+          },
+          "default": 2,
+          "min": 0.5,
+          "max": 5
+        },
+        {
+          "key": "duration",
+          "type": "number",
+          "label": {
+            "en": "Duration (minutes)",
+            "fr": "Durée (minutes)",
+            "de": "Dauer (Minuten)",
+            "es": "Duración (minutos)"
+          },
+          "default": 60,
+          "min": 15,
+          "max": 240
+        }
+      ],
+      "outputs": [
+        {
+          "key": "boosted",
+          "type": "boolean",
+          "label": {
+            "en": "Boosted",
+            "fr": "Boosté",
+            "de": "Geboostet",
+            "es": "Boost aplicado"
+          }
+        }
+      ]
+    },
+    {
+      "key": "set_room_temperature",
+      "label": {
+        "en": "Set a room temperature",
+        "fr": "Régler la température d'une pièce",
+        "de": "Raumtemperatur einstellen",
+        "es": "Ajustar la temperatura de una habitación"
+      },
+      "description": {
+        "en": "Change a room's target temperature. Duration 0: until the next slot of its schedule.",
+        "fr": "Change la consigne d'une pièce. Durée 0 : jusqu'au prochain créneau de son programme.",
+        "de": "Ändert den Sollwert eines Raums. Dauer 0: bis zum nächsten Abschnitt seines Zeitplans.",
+        "es": "Cambia la consigna de una habitación. Duración 0: hasta el siguiente tramo de su programa."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Room",
+            "fr": "Pièce",
+            "de": "Raum",
+            "es": "Habitación"
+          },
+          "required": true
+        },
+        {
+          "key": "temperature",
+          "type": "number",
+          "label": {
+            "en": "Temperature (°C)",
+            "fr": "Température (°C)",
+            "de": "Temperatur (°C)",
+            "es": "Temperatura (°C)"
+          },
+          "required": true,
+          "default": 20,
+          "min": 5,
+          "max": 30
+        },
+        {
+          "key": "duration",
+          "type": "number",
+          "label": {
+            "en": "Duration (minutes)",
+            "fr": "Durée (minutes)",
+            "de": "Dauer (Minuten)",
+            "es": "Duración (minutos)"
+          },
+          "default": 0,
+          "min": 0,
+          "max": 1440
+        }
+      ],
+      "outputs": [
+        {
+          "key": "applied",
+          "type": "boolean",
+          "label": {
+            "en": "Applied",
+            "fr": "Appliquée",
+            "de": "Übernommen",
+            "es": "Aplicada"
+          }
+        }
+      ]
+    },
+    {
+      "key": "cancel_overrides",
+      "label": {
+        "en": "Back to the schedule",
+        "fr": "Revenir au programme",
+        "de": "Zurück zum Zeitplan",
+        "es": "Volver a la programación"
+      },
+      "description": {
+        "en": "Cancel the boosts and temporary temperatures of a room. Without a room: every room.",
+        "fr": "Annule les boosts et consignes temporaires d'une pièce. Sans pièce : toutes les pièces.",
+        "de": "Hebt Boosts und vorübergehende Temperaturen eines Raums auf. Ohne Raum: alle Räume.",
+        "es": "Anula los boosts y consignas temporales de una habitación. Sin habitación: todas."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Room",
+            "fr": "Pièce",
+            "de": "Raum",
+            "es": "Habitación"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "key": "cancelled",
+          "type": "boolean",
+          "label": {
+            "en": "Cancelled",
+            "fr": "Annulées",
+            "de": "Aufgehoben",
+            "es": "Anuladas"
+          }
+        }
+      ]
+    },
+    {
+      "key": "set_away_mode",
+      "label": {
+        "en": "Set away mode",
+        "fr": "Régler le mode absence",
+        "de": "Abwesenheitsmodus einstellen",
+        "es": "Ajustar el modo ausente"
+      },
+      "description": {
+        "en": "Turn away mode on or off: every room drops to the away temperature set in the Wiser app.",
+        "fr": "Active ou désactive le mode absence : toutes les pièces passent à la température d'absence de l'application Wiser.",
+        "de": "Schaltet den Abwesenheitsmodus ein oder aus: Alle Räume gehen auf die Abwesenheitstemperatur der Wiser-App.",
+        "es": "Activa o desactiva el modo ausente: todas las habitaciones bajan a la temperatura de ausencia de la app Wiser."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "enabled",
+          "type": "boolean",
+          "label": {
+            "en": "Away mode on",
+            "fr": "Mode absence activé",
+            "de": "Abwesenheitsmodus an",
+            "es": "Modo ausente activado"
+          },
+          "default": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "away",
+          "type": "boolean",
+          "label": {
+            "en": "Away mode on",
+            "fr": "Mode absence activé",
+            "de": "Abwesenheitsmodus an",
+            "es": "Modo ausente activado"
+          }
+        }
+      ]
+    },
+    {
+      "key": "boost_hot_water",
+      "label": {
+        "en": "Boost hot water",
+        "fr": "Booster l'eau chaude",
+        "de": "Warmwasser boosten",
+        "es": "Boost de agua caliente"
+      },
+      "description": {
+        "en": "Heat the hot water now for a while, whatever its schedule.",
+        "fr": "Chauffe l'eau chaude maintenant pendant un temps, quel que soit son programme.",
+        "de": "Heizt das Warmwasser jetzt eine Zeit lang, unabhängig vom Zeitplan.",
+        "es": "Calienta el agua caliente ahora durante un tiempo, sea cual sea su programa."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "duration",
+          "type": "number",
+          "label": {
+            "en": "Duration (minutes)",
+            "fr": "Durée (minutes)",
+            "de": "Dauer (Minuten)",
+            "es": "Duración (minutos)"
+          },
+          "default": 30,
+          "min": 15,
+          "max": 180
+        }
+      ],
+      "outputs": [
+        {
+          "key": "boosted",
+          "type": "boolean",
+          "label": {
+            "en": "Boosted",
+            "fr": "Boostée",
+            "de": "Geboostet",
+            "es": "Boost aplicado"
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "heating_overview",
+      "label": {
+        "en": "Wiser heating",
+        "fr": "Chauffage Wiser",
+        "de": "Wiser-Heizung",
+        "es": "Calefacción Wiser"
+      },
+      "description": {
+        "en": "Every room at a glance, away and eco modes, boiler, hot water and batteries.",
+        "fr": "Toutes les pièces d'un coup d'œil, modes absence et éco, chaudière, eau chaude et piles.",
+        "de": "Alle Räume auf einen Blick, Abwesenheit und Eco, Heizkessel, Warmwasser und Batterien.",
+        "es": "Todas las habitaciones de un vistazo, modos ausente y eco, caldera, agua caliente y pilas."
+      },
+      "icon": "thermometer",
+      "action_timeout_seconds": 30
+    },
+    {
+      "key": "room",
+      "label": {
+        "en": "Wiser room",
+        "fr": "Pièce Wiser",
+        "de": "Wiser-Raum",
+        "es": "Habitación Wiser"
+      },
+      "description": {
+        "en": "One room: live temperature and target, mode, boost and back to schedule.",
+        "fr": "Une pièce : température et consigne en direct, mode, boost et retour au programme.",
+        "de": "Ein Raum: Temperatur und Sollwert live, Modus, Boost und zurück zum Zeitplan.",
+        "es": "Una habitación: temperatura y consigna en directo, modo, boost y vuelta al programa."
+      },
+      "icon": "home",
+      "action_timeout_seconds": 30,
+      "settings": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Room",
+            "fr": "Pièce",
+            "de": "Raum",
+            "es": "Habitación"
+          },
+          "required": true
+        }
+      ]
+    }
+  ]
+}

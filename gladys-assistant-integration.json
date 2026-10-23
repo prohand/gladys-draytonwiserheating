@@ -8,8 +8,8 @@
     "de": "Steuere deine Drayton-Wiser-Heizung lokal: Räume, Warmwasser, Steckdosen und Ventile.",
     "es": "Controle su calefacción Drayton Wiser en local: habitaciones, agua caliente y enchufes."
   },
-  "version": "0.0.1",
-  "docker_image": "ghcr.io/prohand/gladys-draytonwiserheating:0.0.1",
+  "version": "0.0.2",
+  "docker_image": "ghcr.io/prohand/gladys-draytonwiserheating:0.0.2",
   "gladys_version": ">=5.1.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-draytonwiserheating/main/cover.png",
   "categories": ["climate", "energy"],

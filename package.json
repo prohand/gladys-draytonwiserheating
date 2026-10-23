@@ -1,6 +1,6 @@
 {
   "name": "gladys-draytonwiserheating",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "Gladys Assistant external integration for Drayton Wiser heating (local HeatHub API).",
   "type": "module",

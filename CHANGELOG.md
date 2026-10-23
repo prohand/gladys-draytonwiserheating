@@ -10,6 +10,10 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+## [0.0.2] - 2026-10-23
+
+- Maintenance release, no functional change.
+
 ## [0.0.1] - 2026-10-21
 
 ### Added
@@ -37,5 +41,6 @@ the notes of the version's GitHub Release.
   Releases from this changelog, Dependabot.
 - `SECURITY.md` and `CLAUDE.md`.
 
-[Unreleased]: https://github.com/prohand/gladys-draytonwiserheating/compare/v0.0.1...HEAD
+[Unreleased]: https://github.com/prohand/gladys-draytonwiserheating/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/prohand/gladys-draytonwiserheating/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/prohand/gladys-draytonwiserheating/releases/tag/v0.0.1

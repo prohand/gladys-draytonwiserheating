@@ -32,6 +32,9 @@ Le comportement des commandes, comme dans l'application Wiser :
 
 ## Avant de commencer
 
+Cette intégration nécessite **Gladys 5.3.0 ou plus récent** : le store ne la
+propose pas à une instance plus ancienne.
+
 Il vous faut deux choses : l'**adresse** du hub et son **secret**.
 
 ### 1. L'adresse du hub

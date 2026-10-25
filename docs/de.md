@@ -33,6 +33,9 @@ So verhalten sich die Bedienelemente, wie in der Wiser-App:
 
 ## Bevor du beginnst
 
+Diese Integration erfordert **Gladys 5.3.0 oder neuer**: Der Store bietet sie
+einer älteren Instanz nicht an.
+
 Du brauchst zwei Dinge: die **Adresse** des Hubs und sein **Secret**.
 
 ### 1. Die Adresse des Hubs

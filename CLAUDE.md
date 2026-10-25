@@ -9,7 +9,8 @@ A Gladys Assistant **external integration** (Node 22+, ESM, no build step, one r
 dependency: `@gladysassistant/integration-sdk`) for **Drayton Wiser** heating. It talks to the
 Wiser **HeatHub** over its **local** REST API (`/data/v2/domain/`, `SECRET` header) — never the
 Wiser cloud — and publishes rooms, hot water, smart plugs, radiator valves and room thermostats as
-Gladys devices. Gladys 5.1+ adds scene triggers, scene actions and two dashboard widgets. It
+Gladys devices. Gladys 5.1+ adds scene triggers, scene actions and two dashboard widgets; the
+manifest floor is `>=5.3.0` for the store search `keywords` (no `countries`: not regional). It
 started from the official JavaScript template (`GladysAssistant/integration-template-js`); the
 workflows are the ones of `prohand/gladys-devmel`.
 
@@ -92,7 +93,8 @@ test/                        node --test, SDK fake Gladys + test/helpers/fakeHub
 - **Manifest.** Texts are `{ en, fr, de, es }` objects (`label`, `description`, `placeholder`),
   never plain strings; the catalog `description` holds 10 to 100 characters per language.
   `test/manifest.test.js` ties the manifest to the code (defaults, actions, triggers, scene
-  actions, widgets): change both sides together.
+  actions, widgets) and pins the store rules (catalog vocabulary, search `keywords`, the
+  `>=5.3.0` floor, no `countries`): change both sides together.
 - **User-facing text** is in English, French, German and Spanish: messages (`src/messages.js`,
   widgets), manifest, and `docs/en.md`, `docs/fr.md`, `docs/de.md`, `docs/es.md`, kept in sync.
 - **Style.** Prettier formats, ESLint catches mistakes. Comments explain why, in English. Tests

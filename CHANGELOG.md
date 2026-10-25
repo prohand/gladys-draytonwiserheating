@@ -10,6 +10,18 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Added
+
+- Store search keywords (HeatHub, iTRV, RoomStat, Schneider, boiler, radiator valve…), so the
+  integration is found by what users type.
+
+### Changed
+
+- Gladys 5.3.0 or later is now required (the store search keywords need it).
+- `@gladysassistant/integration-sdk` updated to 0.16.0.
+- The pull request CI runs the store checks without the image check, and the Release workflow
+  re-runs them in full once the image is published.
+
 ## [0.0.2] - 2026-10-23
 
 - Maintenance release, no functional change.

@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/prohand/gladys-draytonwiserheating/actions/workflows/ci.yml/badge.svg)](https://github.com/prohand/gladys-draytonwiserheating/actions/workflows/ci.yml)
 ![Transport: local](https://img.shields.io/badge/transport-local-2ea44f)
-![Gladys ≥ 5.1.0](https://img.shields.io/badge/Gladys-%E2%89%A5%205.1.0-blue)
+![Gladys ≥ 5.3.0](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-blue)
 
 External integration for [Gladys Assistant](https://gladysassistant.com) that drives a
 **Drayton Wiser** heating system through the **local API of the Wiser HeatHub**. No Wiser cloud

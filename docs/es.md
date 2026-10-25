@@ -32,6 +32,9 @@ Cómo se comportan los controles, como en la app Wiser:
 
 ## Antes de empezar
 
+Esta integración requiere **Gladys 5.3.0 o posterior**: el store no la ofrece
+a una instancia más antigua.
+
 Necesita dos cosas: la **dirección** del hub y su **secreto**.
 
 ### 1. La dirección del hub
